@@ -1,0 +1,315 @@
+{
+	"info": {
+		"_postman_id": "f0ad9a77-65d1-4d1f-bb7b-5e77c4384735",
+		"name": "Testing-API's",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22110157"
+	},
+	"item": [
+		{
+			"name": "ssa login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"userIdOrEmail\": \"super.admin\",\r\n \"password\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ssa.Address}}/rss/service/admin/v1/operators/authenticate",
+					"host": [
+						"{{ssa.Address}}"
+					],
+					"path": [
+						"rss",
+						"service",
+						"admin",
+						"v1",
+						"operators",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create infra key",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ssa.accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"keyLength\": 1024,\r\n  \"keyAlias\": \"tester 13\",\r\n  \"keyPurpose\": \"LOG_SIGNING_KEY\",\r\n  \"keyAlgorithm\": \"RSA\",\r\n  \"status\": \"ACTIVE\",\r\n  \"description\": \"Purpose of keys being used for.\",\r\n  \"keyProfile\": \"Soft-Crypto\",\r\n  \"keyAttribute\": \"BRAINPOOL_R\",\r\n  \"code\": \"string\",\r\n  \"certificateData\": \"string\",\r\n  \"csr\": \"string\",\r\n  \"systemCertificate\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ssa.Address}}/rss/service/admin/v1/crypto/keys/create",
+					"host": [
+						"{{ssa.Address}}"
+					],
+					"path": [
+						"rss",
+						"service",
+						"admin",
+						"v1",
+						"crypto",
+						"keys",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Privil Role",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ssa.accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"roleId\": \"Tester.ssa\",\r\n        \"roleDescription\": \"Privileged Super User that can perform and approve all configurations in the system\",\r\n        \"modules\": [\r\n            {\r\n                \"module\": \"ACCESS_MANAGEMENT\",\r\n                \"moduleName\": \"Access Management\",\r\n                \"subModules\": [\r\n                    {\r\n                        \"subModule\": \"OPERATOR_MANAGER\",\r\n                        \"subModuleName\": \"Operator Manager\",\r\n                        \"accessRights\": {\r\n                            \"readAccess\": true,\r\n                            \"createAccess\": true,\r\n                            \"deleteAccess\": true,\r\n                            \"approvalRequired\": false,\r\n                            \"approvingAuthority\": true\r\n                        }\r\n                    },\r\n                    {\r\n                        \"subModule\": \"ROLES_MANAGER\",\r\n                        \"subModuleName\": \"Roles & Permissions\",\r\n                        \"accessRights\": {\r\n                            \"readAccess\": true,\r\n                            \"createAccess\": true,\r\n                            \"deleteAccess\": true,\r\n                            \"approvalRequired\": false,\r\n                            \"approvingAuthority\": true\r\n                        }\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"module\": \"ALERT_SETTINGS\",\r\n                \"moduleName\": \"Alerts Configurations\",\r\n                \"subModules\": [\r\n                    {\r\n                        \"subModule\": \"EMAIL_CONFIGURATIONS\",\r\n                        \"subModuleName\": \"Email Configurations\",\r\n                        \"accessRights\": {\r\n                            \"readAccess\": true,\r\n                            \"createAccess\": true,\r\n                            \"deleteAccess\": true,\r\n                            \"approvalRequired\": false,\r\n                            \"approvingAuthority\": true\r\n                        }\r\n                    },\r\n                    {\r\n                        \"subModule\": \"SMS_CONFIGURATIONS\",\r\n                        \"subModuleName\": \"SMS Configurations\",\r\n                        \"accessRights\": {\r\n                            \"readAccess\": true,\r\n                            \"createAccess\": true,\r\n                            \"deleteAccess\": true,\r\n                            \"approvalRequired\": false,\r\n                            \"approvingAuthority\": true\r\n                        }\r\n                    },\r\n                    {\r\n                        \"subModule\": \"SYSTEM_ALERTS\",\r\n                        \"subModuleName\": \"System Alerts\",\r\n                        \"accessRights\": {\r\n                            \"readAccess\": true,\r\n                            \"createAccess\": true,\r\n                            \"deleteAccess\": true,\r\n                            \"approvalRequired\": false,\r\n                            \"approvingAuthority\": true\r\n                        }\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"module\": \"BUSINESS_APPLICATIONS\",\r\n                \"moduleName\": \"Business Applications\",\r\n                \"accessRights\": {\r\n                    \"readAccess\": true,\r\n                    \"createAccess\": true,\r\n                    \"deleteAccess\": true,\r\n                    \"approvalRequired\": false,\r\n                    \"approvingAuthority\": true\r\n                }\r\n            },\r\n            {\r\n                \"module\": \"CRYPTO_MANAGEMENT\",\r\n                \"moduleName\": \"Crypto Management\",\r\n                \"subModules\": [\r\n                    {\r\n                        \"subModule\": \"CRYPTO_PROFILES\",\r\n                        \"subModuleName\": \"Crypto Profiles\",\r\n                        \"accessRights\": {\r\n                            \"readAccess\": true,\r\n                            \"createAccess\": true,\r\n                            \"deleteAccess\": true,\r\n                            \"approvalRequired\": false,\r\n                            \"approvingAuthority\": true\r\n                        }\r\n                    },\r\n                    {\r\n                        \"subModule\": \"KEY_MANAGER\",\r\n                        \"subModuleName\": \"Key Management\",\r\n                        \"accessRights\": {\r\n                            \"readAccess\": true,\r\n                            \"createAccess\": true,\r\n                            \"deleteAccess\": true,\r\n                            \"approvalRequired\": false,\r\n                            \"approvingAuthority\": true\r\n                        }\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"module\": \"SSA_SERVICE\",\r\n                \"moduleName\": \"SSA Service\",\r\n                \"subModules\": [\r\n                    {\r\n                        \"subModule\": \"SIGNING_USERS\",\r\n                        \"subModuleName\": \"Signing Users\",\r\n                        \"accessRights\": {\r\n                            \"readAccess\": true,\r\n                            \"createAccess\": true,\r\n                            \"deleteAccess\": true,\r\n                            \"approvalRequired\": false,\r\n                            \"approvingAuthority\": true\r\n                        }\r\n                    },\r\n                    {\r\n                        \"subModule\": \"SSA_CONFIGURATIONS\",\r\n                        \"subModuleName\": \"SSA Configurations\",\r\n                        \"accessRights\": {\r\n                            \"readAccess\": true,\r\n                            \"createAccess\": true,\r\n                            \"deleteAccess\": true,\r\n                            \"approvalRequired\": false,\r\n                            \"approvingAuthority\": true\r\n                        }\r\n                    },\r\n                    {\r\n                        \"subModule\": \"SSA_TEMPLATES\",\r\n                        \"subModuleName\": \"SSA Templates\",\r\n                        \"accessRights\": {\r\n                            \"readAccess\": true,\r\n                            \"createAccess\": true,\r\n                            \"deleteAccess\": true,\r\n                            \"approvalRequired\": false,\r\n                            \"approvingAuthority\": true\r\n                        }\r\n                    },\r\n                    {\r\n                        \"subModule\": \"SSA_TRANSACTION_LOGS\",\r\n                        \"subModuleName\": \"Transaction Logs\",\r\n                        \"accessRights\": {\r\n                            \"readAccess\": true,\r\n                            \"createAccess\": true,\r\n                            \"deleteAccess\": true,\r\n                            \"approvalRequired\": false,\r\n                            \"approvingAuthority\": true\r\n                        }\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"module\": \"SYSTEM_SETTINGS\",\r\n                \"moduleName\": \"System Settings\",\r\n                \"subModules\": [\r\n                    {\r\n                        \"subModule\": \"GLOBAL_CONNECTORS\",\r\n                        \"subModuleName\": \"Global Connectors\",\r\n                        \"accessRights\": {\r\n                            \"readAccess\": true,\r\n                            \"createAccess\": true,\r\n                            \"deleteAccess\": true,\r\n                            \"approvalRequired\": false,\r\n                            \"approvingAuthority\": true\r\n                        }\r\n                    },\r\n                    {\r\n                        \"subModule\": \"LICENSE_MANAGER\",\r\n                        \"subModuleName\": \"License Manager\",\r\n                        \"accessRights\": {\r\n                            \"readAccess\": true,\r\n                            \"createAccess\": true,\r\n                            \"deleteAccess\": true,\r\n                            \"approvalRequired\": false,\r\n                            \"approvingAuthority\": true\r\n                        }\r\n                    },\r\n                    {\r\n                        \"subModule\": \"SYSTEM_CONFIGURATIONS\",\r\n                        \"subModuleName\": \"System Configurations\",\r\n                        \"accessRights\": {\r\n                            \"readAccess\": true,\r\n                            \"createAccess\": true,\r\n                            \"deleteAccess\": true,\r\n                            \"approvalRequired\": false,\r\n                            \"approvingAuthority\": true\r\n                        }\r\n                    },\r\n                    {\r\n                        \"subModule\": \"SYSTEM_SECURITY\",\r\n                        \"subModuleName\": \"System Security\",\r\n                        \"accessRights\": {\r\n                            \"readAccess\": true,\r\n                            \"createAccess\": true,\r\n                            \"deleteAccess\": true,\r\n                            \"approvalRequired\": false,\r\n                            \"approvingAuthority\": true\r\n                        }\r\n                    }\r\n                ]\r\n            }\r\n        ]\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ssa.Address}}/rss/service/admin/v1/roles/add",
+					"host": [
+						"{{ssa.Address}}"
+					],
+					"path": [
+						"rss",
+						"service",
+						"admin",
+						"v1",
+						"roles",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Privil Role",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ssa.accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"code\": \"0000\",\r\n  \"id\": 5,\r\n  \"userId\": \"Ssa-Roles\",\r\n  \"mobile\": \"00923218351459\",\r\n  \"role\": \"Tester.ssa\",\r\n  \"status\": \"ACTIVE\",\r\n  \"password\": \"Ilovepak\",\r\n  \"email\": \"dictalabse@company.com\",\r\n  \"username\": \"System Operators\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ssa.Address}}/rss/service/admin/v1/operators/register",
+					"host": [
+						"{{ssa.Address}}"
+					],
+					"path": [
+						"rss",
+						"service",
+						"admin",
+						"v1",
+						"operators",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Modules-list",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjYyNDQyODkzLCJleHAiOjE2NjI0NjQ0OTMsIlJPTEVfU1lTVEVNX1VTRVIiOiJ0cnVlIiwiUk9MRV9VU0VSX01BTkFHRVIiOiJmYWxzZSIsIlJPTEVfU0lHTklOR19VU0VSIjoiZmFsc2UifQ.AOlW3dSBG4MXJBPfzaYM6P6VBy_mABUtEycMzIjD5U5Oady9lLgpyN-rhIbUSD7b1aK8pRto7JfFGTUn7jnfbg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://qa.api-sam.etugra.com.pk:6050/rss/service/admin/v1/modules/list",
+					"protocol": "https",
+					"host": [
+						"qa",
+						"api-sam",
+						"etugra",
+						"com",
+						"pk"
+					],
+					"port": "6050",
+					"path": [
+						"rss",
+						"service",
+						"admin",
+						"v1",
+						"modules",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Auth-Apps",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjYyNDQyODkzLCJleHAiOjE2NjI0NjQ0OTMsIlJPTEVfU1lTVEVNX1VTRVIiOiJ0cnVlIiwiUk9MRV9VU0VSX01BTkFHRVIiOiJmYWxzZSIsIlJPTEVfU0lHTklOR19VU0VSIjoiZmFsc2UifQ.AOlW3dSBG4MXJBPfzaYM6P6VBy_mABUtEycMzIjD5U5Oady9lLgpyN-rhIbUSD7b1aK8pRto7JfFGTUn7jnfbg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://qa.api-sam.etugra.com.pk:6050/rss/service/admin/v1/applications/list",
+					"protocol": "https",
+					"host": [
+						"qa",
+						"api-sam",
+						"etugra",
+						"com",
+						"pk"
+					],
+					"port": "6050",
+					"path": [
+						"rss",
+						"service",
+						"admin",
+						"v1",
+						"applications",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Privil-Roles",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjYyNDQyODkzLCJleHAiOjE2NjI0NjQ0OTMsIlJPTEVfU1lTVEVNX1VTRVIiOiJ0cnVlIiwiUk9MRV9VU0VSX01BTkFHRVIiOiJmYWxzZSIsIlJPTEVfU0lHTklOR19VU0VSIjoiZmFsc2UifQ.AOlW3dSBG4MXJBPfzaYM6P6VBy_mABUtEycMzIjD5U5Oady9lLgpyN-rhIbUSD7b1aK8pRto7JfFGTUn7jnfbg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://qa.api-sam.etugra.com.pk:6050/rss/service/admin/v1/roles/list",
+					"protocol": "https",
+					"host": [
+						"qa",
+						"api-sam",
+						"etugra",
+						"com",
+						"pk"
+					],
+					"port": "6050",
+					"path": [
+						"rss",
+						"service",
+						"admin",
+						"v1",
+						"roles",
+						"list"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
